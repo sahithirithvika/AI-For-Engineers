@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What is a deterministic finite automaton?",
+    "answer": "Step 1: A DFA is a theoretical model of computation used in computer science. Step 2: It consists of a finite set of states, a start state, accept states, and a transition function. Step 3: For each state and input symbol, there is exactly one transition to another state. Step 4: The DFA accepts a string if it ends in an accept state after processing all symbols."
+  },
+  {
+    "question": "Explain the dot product of two vectors",
+    "answer": "Step 1: The dot product is an operation that takes two vectors and returns a scalar. Step 2: Formula is a·b = a1*b1 + a2*b2 + ... + an*bn where ai and bi are components. Step 3: Geometrically, it equals |a||b|cos(θ) where θ is the angle between vectors. Step 4: If the dot product is zero, the vectors are perpendicular."
+  },
+  {
+    "question": "How do you solve a system of linear equations?",
+    "answer": "Step 1: Write the system in matrix form Ax = b. Step 2: Use Gaussian elimination to convert to row echelon form. Step 3: Apply back substitution to find variable values. Step 4: Check if the system has one solution, no solution, or infinitely many solutions based on the rank."
+  },
+  {
+    "question": "What is Big O notation?",
+    "answer": "Step 1: Big O notation describes the upper bound of algorithm time complexity. Step 2: It shows how runtime grows as input size increases. Step 3: Common complexities are O(1) constant, O(log n) logarithmic, O(n) linear, O(n²) quadratic. Step 4: We ignore constants and lower-order terms to focus on growth rate."
+  },
+  {
+    "question": "Explain recursion in programming",
+    "answer": "Step 1: Recursion is when a function calls itself to solve a problem. Step 2: Every recursive function needs a base case to stop recursion. Step 3: The recursive case breaks the problem into smaller subproblems. Step 4: Example: factorial(n) = n * factorial(n-1) with base case factorial(0) = 1."
+  }
+]

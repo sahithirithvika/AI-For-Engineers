@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ../models:/app/models
+      - ../data:/app/data
+    environment:
+      - FLASK_ENV=production
+      - TF_CPP_MIN_LOG_LEVEL=2
+    restart: unless-stopped
+
+  frontend:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ../frontend:/app
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm start"
+    depends_on:
+      - api
+    restart: unless-stopped

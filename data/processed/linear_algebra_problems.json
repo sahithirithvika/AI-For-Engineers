@@ -1,0 +1,18 @@
+[
+  {
+    "question": "Find the inverse of the matrix [[2,1],[5,3]]",
+    "answer": "Step 1: Calculate the determinant: det = 2*3 - 1*5 = 6 - 5 = 1. Step 2: Since det ≠ 0, the inverse exists. Step 3: For a 2×2 matrix [[a,b],[c,d]], the inverse is (1/det)*[[d,-b],[-c,a]]. Step 4: Swap diagonal elements and negate off-diagonal: [[3,-1],[-5,2]]. Step 5: Multiply by 1/det = 1/1 = 1. Step 6: The inverse is [[3,-1],[-5,2]]."
+  },
+  {
+    "question": "What is an eigenvector and eigenvalue?",
+    "answer": "Step 1: An eigenvector of a matrix A is a non-zero vector v such that Av = λv for some scalar λ. Step 2: The scalar λ is called the eigenvalue corresponding to that eigenvector. Step 3: Geometrically, multiplying by A only scales the eigenvector, doesn't change its direction. Step 4: To find eigenvalues, solve det(A - λI) = 0 where I is the identity matrix. Step 5: Once eigenvalues are found, substitute each into (A - λI)v = 0 to find eigenvectors. Step 6: Eigenvalues and eigenvectors are crucial in stability analysis, vibrations, and principal component analysis."
+  },
+  {
+    "question": "Calculate the cross product of vectors a = (1,2,3) and b = (4,5,6)",
+    "answer": "Step 1: The cross product a × b is perpendicular to both a and b. Step 2: Use the determinant formula with unit vectors: a × b = |i  j  k|, |1  2  3|, |4  5  6|. Step 3: Expand: i(2*6 - 3*5) - j(1*6 - 3*4) + k(1*5 - 2*4). Step 4: Calculate each component: i(12-15) - j(6-12) + k(5-8). Step 5: Simplify: -3i + 6j - 3k. Step 6: Result: a × b = (-3, 6, -3)."
+  },
+  {
+    "question": "What is the rank of a matrix and how do you find it?",
+    "answer": "Step 1: The rank of a matrix is the maximum number of linearly independent rows or columns. Step 2: To find rank, convert the matrix to row echelon form using Gaussian elimination. Step 3: Count the number of non-zero rows in the row echelon form. Step 4: This count equals the rank of the matrix. Step 5: The rank tells us the dimension of the column space and row space. Step 6: For an m×n matrix, rank ≤ min(m,n)."
+  }
+]

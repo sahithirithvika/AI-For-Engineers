@@ -1,0 +1,90 @@
+[
+  {
+    "question": "What is a deterministic finite automaton?",
+    "answer": "Step 1: A DFA is a theoretical model of computation used in computer science. Step 2: It consists of a finite set of states, a start state, accept states, and a transition function. Step 3: For each state and input symbol, there is exactly one transition to another state. Step 4: The DFA accepts a string if it ends in an accept state after processing all symbols."
+  },
+  {
+    "question": "Explain the dot product of two vectors",
+    "answer": "Step 1: The dot product is an operation that takes two vectors and returns a scalar. Step 2: Formula is a·b = a1*b1 + a2*b2 + ... + an*bn where ai and bi are components. Step 3: Geometrically, it equals |a||b|cos(θ) where θ is the angle between vectors. Step 4: If the dot product is zero, the vectors are perpendicular."
+  },
+  {
+    "question": "How do you solve a system of linear equations?",
+    "answer": "Step 1: Write the system in matrix form Ax = b. Step 2: Use Gaussian elimination to convert to row echelon form. Step 3: Apply back substitution to find variable values. Step 4: Check if the system has one solution, no solution, or infinitely many solutions based on the rank."
+  },
+  {
+    "question": "What is Big O notation?",
+    "answer": "Step 1: Big O notation describes the upper bound of algorithm time complexity. Step 2: It shows how runtime grows as input size increases. Step 3: Common complexities are O(1) constant, O(log n) logarithmic, O(n) linear, O(n²) quadratic. Step 4: We ignore constants and lower-order terms to focus on growth rate."
+  },
+  {
+    "question": "Explain recursion in programming",
+    "answer": "Step 1: Recursion is when a function calls itself to solve a problem. Step 2: Every recursive function needs a base case to stop recursion. Step 3: The recursive case breaks the problem into smaller subproblems. Step 4: Example: factorial(n) = n * factorial(n-1) with base case factorial(0) = 1."
+  },
+  {
+    "question": "Integrate x * e^x dx using integration by parts",
+    "answer": "Step 1: Identify the integration by parts method where ∫u dv = uv - ∫v du. Step 2: Assign variables: let u = x and dv = e^x dx. Step 3: Find derivatives and integrals: du = dx and v = e^x. Step 4: Apply the formula: ∫x*e^x dx = x*e^x - ∫e^x dx. Step 5: Simplify: x*e^x - e^x + C. Step 6: Factor the result: e^x(x-1) + C where C is the constant of integration."
+  },
+  {
+    "question": "What is a deterministic finite automaton and how does it work?",
+    "answer": "Step 1: A DFA is a theoretical model of computation consisting of states and transitions. Step 2: It has five components: a finite set of states Q, an alphabet Σ, a transition function δ, a start state q0, and accept states F. Step 3: For each state and input symbol, there is exactly one transition to another state. Step 4: The DFA processes input symbols one by one, moving between states. Step 5: If the DFA ends in an accept state after reading all input, the string is accepted; otherwise it is rejected."
+  },
+  {
+    "question": "Explain the dot product of two vectors and its geometric meaning",
+    "answer": "Step 1: The dot product is an operation that takes two vectors and returns a scalar value. Step 2: For vectors a = (a1, a2, ..., an) and b = (b1, b2, ..., bn), the formula is a·b = a1*b1 + a2*b2 + ... + an*bn. Step 3: Geometrically, a·b = |a||b|cos(θ) where θ is the angle between the vectors. Step 4: If the dot product equals zero, the vectors are perpendicular (orthogonal). Step 5: The dot product is used to find projections, angles between vectors, and test for orthogonality in engineering applications."
+  },
+  {
+    "question": "How do you solve a system of linear equations using Gaussian elimination?",
+    "answer": "Step 1: Write the system in augmented matrix form [A|b]. Step 2: Use row operations to convert the matrix to row echelon form (upper triangular). Step 3: The allowed operations are: swap rows, multiply a row by a nonzero constant, add a multiple of one row to another. Step 4: Continue until you have zeros below the diagonal. Step 5: Apply back substitution starting from the bottom row to find variable values. Step 6: Check the solution by substituting back into the original equations."
+  },
+  {
+    "question": "What is Big O notation and why is it important in algorithm analysis?",
+    "answer": "Step 1: Big O notation describes the upper bound of an algorithm's time or space complexity. Step 2: It shows how the runtime or memory usage grows as the input size n increases. Step 3: Common complexities include O(1) constant, O(log n) logarithmic, O(n) linear, O(n log n) linearithmic, O(n²) quadratic, and O(2^n) exponential. Step 4: We ignore constant factors and lower-order terms to focus on the dominant growth rate. Step 5: Big O helps engineers compare algorithms and choose the most efficient solution for large-scale problems."
+  },
+  {
+    "question": "Explain recursion in programming with an example",
+    "answer": "Step 1: Recursion is when a function calls itself to solve a problem by breaking it into smaller subproblems. Step 2: Every recursive function needs a base case to stop the recursion and prevent infinite loops. Step 3: The recursive case breaks the problem down and calls the function again with a simpler input. Step 4: Example: factorial(n) = n * factorial(n-1) with base case factorial(0) = 1. Step 5: For factorial(3): 3 * factorial(2) → 3 * 2 * factorial(1) → 3 * 2 * 1 * factorial(0) → 3 * 2 * 1 * 1 = 6."
+  },
+  {
+    "question": "Solve the differential equation dy/dx = 2x",
+    "answer": "Step 1: Recognize this as a first-order separable differential equation. Step 2: Separate variables by writing dy = 2x dx. Step 3: Integrate both sides: ∫dy = ∫2x dx. Step 4: Evaluate the integrals: y = x² + C where C is the constant of integration. Step 5: The general solution is y = x² + C, representing a family of parabolas. Step 6: If given an initial condition like y(0) = 3, substitute to find C = 3, giving the particular solution y = x² + 3."
+  },
+  {
+    "question": "What is the chain rule in calculus and how do you apply it?",
+    "answer": "Step 1: The chain rule is used to differentiate composite functions of the form f(g(x)). Step 2: The formula is: d/dx[f(g(x))] = f'(g(x)) * g'(x). Step 3: In words: differentiate the outer function, keep the inner function unchanged, then multiply by the derivative of the inner function. Step 4: Example: Find d/dx[sin(x²)]. Step 5: Outer function is sin(u) with derivative cos(u), inner function is x² with derivative 2x. Step 6: Result: cos(x²) * 2x = 2x*cos(x²)."
+  },
+  {
+    "question": "Find the derivative of f(x) = 3x² + 2x - 5",
+    "answer": "Step 1: Apply the power rule to each term separately. Step 2: For 3x², bring down the exponent: 3*2*x^(2-1) = 6x. Step 3: For 2x, the derivative is simply 2. Step 4: For the constant -5, the derivative is 0. Step 5: Combine all terms: f'(x) = 6x + 2."
+  },
+  {
+    "question": "Evaluate the limit as x approaches 0 of sin(x)/x",
+    "answer": "Step 1: Direct substitution gives 0/0, which is indeterminate. Step 2: This is a standard limit that equals 1, but let's verify using L'Hôpital's rule. Step 3: Take derivatives of numerator and denominator: d/dx[sin(x)] = cos(x) and d/dx[x] = 1. Step 4: The limit becomes lim(x→0) cos(x)/1 = cos(0)/1. Step 5: Since cos(0) = 1, the limit equals 1."
+  },
+  {
+    "question": "Find the area under the curve y = x² from x = 0 to x = 2",
+    "answer": "Step 1: Set up the definite integral: ∫₀² x² dx. Step 2: Find the antiderivative using the power rule: x³/3. Step 3: Apply the fundamental theorem of calculus: [x³/3]₀². Step 4: Evaluate at the upper bound: (2³)/3 = 8/3. Step 5: Evaluate at the lower bound: (0³)/3 = 0. Step 6: Subtract: 8/3 - 0 = 8/3 square units."
+  },
+  {
+    "question": "Solve for x: 2^x = 16",
+    "answer": "Step 1: Recognize that 16 is a power of 2: 16 = 2⁴. Step 2: Rewrite the equation: 2^x = 2⁴. Step 3: Since the bases are equal, the exponents must be equal. Step 4: Therefore x = 4. Step 5: Verify by substituting: 2⁴ = 16 ✓."
+  },
+  {
+    "question": "What is the determinant of a 2x2 matrix [[a,b],[c,d]]?",
+    "answer": "Step 1: For a 2×2 matrix, the determinant formula is ad - bc. Step 2: Multiply the diagonal elements: a*d. Step 3: Multiply the off-diagonal elements: b*c. Step 4: Subtract: det = ad - bc. Step 5: Example: for [[3,2],[1,4]], det = 3*4 - 2*1 = 12 - 2 = 10."
+  },
+  {
+    "question": "Find the inverse of the matrix [[2,1],[5,3]]",
+    "answer": "Step 1: Calculate the determinant: det = 2*3 - 1*5 = 6 - 5 = 1. Step 2: Since det ≠ 0, the inverse exists. Step 3: For a 2×2 matrix [[a,b],[c,d]], the inverse is (1/det)*[[d,-b],[-c,a]]. Step 4: Swap diagonal elements and negate off-diagonal: [[3,-1],[-5,2]]. Step 5: Multiply by 1/det = 1/1 = 1. Step 6: The inverse is [[3,-1],[-5,2]]."
+  },
+  {
+    "question": "What is an eigenvector and eigenvalue?",
+    "answer": "Step 1: An eigenvector of a matrix A is a non-zero vector v such that Av = λv for some scalar λ. Step 2: The scalar λ is called the eigenvalue corresponding to that eigenvector. Step 3: Geometrically, multiplying by A only scales the eigenvector, doesn't change its direction. Step 4: To find eigenvalues, solve det(A - λI) = 0 where I is the identity matrix. Step 5: Once eigenvalues are found, substitute each into (A - λI)v = 0 to find eigenvectors. Step 6: Eigenvalues and eigenvectors are crucial in stability analysis, vibrations, and principal component analysis."
+  },
+  {
+    "question": "Calculate the cross product of vectors a = (1,2,3) and b = (4,5,6)",
+    "answer": "Step 1: The cross product a × b is perpendicular to both a and b. Step 2: Use the determinant formula with unit vectors: a × b = |i  j  k|, |1  2  3|, |4  5  6|. Step 3: Expand: i(2*6 - 3*5) - j(1*6 - 3*4) + k(1*5 - 2*4). Step 4: Calculate each component: i(12-15) - j(6-12) + k(5-8). Step 5: Simplify: -3i + 6j - 3k. Step 6: Result: a × b = (-3, 6, -3)."
+  },
+  {
+    "question": "What is the rank of a matrix and how do you find it?",
+    "answer": "Step 1: The rank of a matrix is the maximum number of linearly independent rows or columns. Step 2: To find rank, convert the matrix to row echelon form using Gaussian elimination. Step 3: Count the number of non-zero rows in the row echelon form. Step 4: This count equals the rank of the matrix. Step 5: The rank tells us the dimension of the column space and row space. Step 6: For an m×n matrix, rank ≤ min(m,n)."
+  }
+]

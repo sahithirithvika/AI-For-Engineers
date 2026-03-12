@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Find the derivative of f(x) = 3x² + 2x - 5",
+    "answer": "Step 1: Apply the power rule to each term separately. Step 2: For 3x², bring down the exponent: 3*2*x^(2-1) = 6x. Step 3: For 2x, the derivative is simply 2. Step 4: For the constant -5, the derivative is 0. Step 5: Combine all terms: f'(x) = 6x + 2."
+  },
+  {
+    "question": "Evaluate the limit as x approaches 0 of sin(x)/x",
+    "answer": "Step 1: Direct substitution gives 0/0, which is indeterminate. Step 2: This is a standard limit that equals 1, but let's verify using L'Hôpital's rule. Step 3: Take derivatives of numerator and denominator: d/dx[sin(x)] = cos(x) and d/dx[x] = 1. Step 4: The limit becomes lim(x→0) cos(x)/1 = cos(0)/1. Step 5: Since cos(0) = 1, the limit equals 1."
+  },
+  {
+    "question": "Find the area under the curve y = x² from x = 0 to x = 2",
+    "answer": "Step 1: Set up the definite integral: ∫₀² x² dx. Step 2: Find the antiderivative using the power rule: x³/3. Step 3: Apply the fundamental theorem of calculus: [x³/3]₀². Step 4: Evaluate at the upper bound: (2³)/3 = 8/3. Step 5: Evaluate at the lower bound: (0³)/3 = 0. Step 6: Subtract: 8/3 - 0 = 8/3 square units."
+  },
+  {
+    "question": "Solve for x: 2^x = 16",
+    "answer": "Step 1: Recognize that 16 is a power of 2: 16 = 2⁴. Step 2: Rewrite the equation: 2^x = 2⁴. Step 3: Since the bases are equal, the exponents must be equal. Step 4: Therefore x = 4. Step 5: Verify by substituting: 2⁴ = 16 ✓."
+  },
+  {
+    "question": "What is the determinant of a 2x2 matrix [[a,b],[c,d]]?",
+    "answer": "Step 1: For a 2×2 matrix, the determinant formula is ad - bc. Step 2: Multiply the diagonal elements: a*d. Step 3: Multiply the off-diagonal elements: b*c. Step 4: Subtract: det = ad - bc. Step 5: Example: for [[3,2],[1,4]], det = 3*4 - 2*1 = 12 - 2 = 10."
+  }
+]
