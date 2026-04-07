@@ -417,10 +417,10 @@ curl http://localhost:8080/health
 
 ## Team
 
-1. **Sai Spoorthy Eturu** - Team lead, MLOps and deployment  
-2. **Sahithi Rithvika Katakam** - Data engineer, scraping and dataset management  
-3. **Shivani Edigi** - ML engineer, model design and evaluation  
-4. **Hari Hansika Kommera** - Backend and frontend development
+1. **Sai Spoorthy Eturu** - Team lead 
+2. **Sahithi Rithvika Katakam**  
+3. **Shivani Edigi**  
+4. **Hari Hansika Kommera** 
 
 **Under the guidance of:**  
 **A Naga Kalyani** - Assistant Professor, Dept of CSE (AI&ML)  
