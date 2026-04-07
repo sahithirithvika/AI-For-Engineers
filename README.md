@@ -79,39 +79,61 @@ Built from scratch using TensorFlow/Keras with:
 
 ```
 AI-For-Engineers/
-├── data/
-│   ├── processed/
+├── 📁 api/                      # Backend API server
+│   ├── app.py                   # Main Flask API server
+│   └── demo_app.py              # Demo API implementation
+├── 📁 data/                     # Training datasets
+│   ├── processed/               # Processed training data
 │   │   ├── training_data.json
 │   │   ├── engineering_math_dataset.json
 │   │   ├── calculus_problems.json
 │   │   ├── linear_algebra_problems.json
 │   │   └── merged_training_data.json
-│   └── merge_datasets.py
-├── training/
-│   ├── model.py              # Transformer model architecture
-│   ├── data_pipeline.py      # Data loading and preprocessing
-│   ├── train_model.py        # Training script with callbacks
-│   ├── inference.py          # Inference engine
-│   ├── config.py             # Model configuration
-│   └── test_model.py         # Model testing utilities
-├── models/
-│   ├── saved_models/         # Trained model weights and config
-│   └── checkpoints/          # Training checkpoints
-├── api/
-│   └── app.py               # Flask API server
-├── frontend/
-│   ├── src/
-│   │   ├── App.js           # React main component
-│   │   ├── App.css          # Styling
-│   │   └── index.js         # Entry point
-│   ├── public/
-│   │   └── index.html       # HTML template
-│   └── package.json         # Dependencies
-├── deployment/
-│   ├── Dockerfile           # Container configuration
-│   └── docker-compose.yml   # Multi-service orchestration
-├── requirements.txt         # Python dependencies
-└── README.md
+│   └── merge_datasets.py        # Dataset merging utility
+├── 📁 training/                 # ML model training pipeline
+│   ├── model.py                 # Transformer model architecture
+│   ├── data_pipeline.py         # Data loading and preprocessing
+│   ├── train_model.py           # Training script with callbacks
+│   ├── inference.py             # Inference engine
+│   ├── config.py                # Model configuration
+│   └── test_model.py            # Model testing utilities
+├── 📁 models/                   # Trained models and checkpoints
+│   ├── saved_models/            # Final trained model weights
+│   └── checkpoints/             # Training checkpoints
+├── 📁 frontend/                 # React web application
+│   ├── src/                     # React source code
+│   │   ├── App.js               # Main React component
+│   │   ├── App.css              # Styling
+│   │   └── index.js             # Entry point
+│   ├── public/                  # Static assets
+│   │   └── index.html           # HTML template
+│   └── package.json             # Node.js dependencies
+├── 📁 deployment/               # Container and deployment configs
+│   ├── Dockerfile               # Container configuration
+│   └── docker-compose.yml       # Multi-service orchestration
+├── 📁 docs/                     # Project documentation
+│   ├── ARCHITECTURE.md          # System architecture overview
+│   ├── SETUP_GUIDE.md           # Detailed setup instructions
+│   ├── QUICKSTART.md            # Quick start guide
+│   ├── TROUBLESHOOTING.md       # Common issues and solutions
+│   ├── ENHANCEMENTS.md          # Future enhancement plans
+│   ├── CURRENT_STATUS.md        # Current project status
+│   ├── CHECKLIST.md             # Development checklist
+│   ├── IMPLEMENTATION_SUMMARY.md # Implementation details
+│   └── FILES_CREATED.md         # File creation log
+├── 📁 scripts/                  # Utility scripts
+│   ├── check_syntax.py          # Code syntax checker
+│   └── verify_structure.py      # Project structure validator
+├── 📁 examples/                 # Example implementations
+│   ├── demo_model_structure.py  # Model structure demo
+│   ├── example_usage.py         # Usage examples
+│   ├── test_api.html            # API testing interface
+│   └── ui.html                  # Alternative UI demo
+├── 📁 logs/                     # Training and application logs
+├── 📄 requirements.txt          # Python dependencies
+├── 📄 README.md                 # Main project documentation
+├── 📄 LICENSE                   # MIT license
+└── 📄 .gitignore                # Git ignore rules
 ```
 
 ## Getting Started
