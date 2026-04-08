@@ -536,6 +536,16 @@ button:disabled {
   text-align: center;
   backdrop-filter: blur(10px);
 }
+.app.light {
+  background: #ffffff;
+  color: #000000;
+}
+
+.app.dark {
+  background: #121212;
+  color: #ffffff;
+}
+
 
 .game-card:hover {
   transform: translateY(-8px);
