@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function Settings({ user }) {
+export default function Settings({ user, setTheme }) {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState("light");
+  const [theme, setLocalTheme] = useState("light");
   const [notifications, setNotifications] = useState(true);
+
+  // Fetch saved settings when modal opens
+  useEffect(() => {
+    if (open) {
+      fetch(`http://localhost:5000/settings/${user}`)
+        .then(res => res.json())
+        .then(data => {
+          setLocalTheme(data.theme);
+          setNotifications(data.notifications);
+        });
+    }
+  }, [open, user]);
 
   const saveSettings = async () => {
     await fetch(`http://localhost:5000/settings/${user}`, {
@@ -12,13 +24,14 @@ export default function Settings({ user }) {
       body: JSON.stringify({ theme, notifications })
     });
     alert("Settings saved!");
+    setTheme(theme); // ✅ apply theme immediately
     setOpen(false);
   };
 
   return (
     <>
       <button onClick={() => setOpen(true)} style={{ position: "absolute", bottom: 10, left: 10 }}>
-        ⚙️ Settings
+        ⚙ Settings
       </button>
 
       {open && (
@@ -30,7 +43,7 @@ export default function Settings({ user }) {
 
           <label>
             Theme:
-            <select value={theme} onChange={e => setTheme(e.target.value)}>
+            <select value={theme} onChange={e => setLocalTheme(e.target.value)}>
               <option value="light">Light</option>
               <option value="dark">Dark</option>
             </select>
