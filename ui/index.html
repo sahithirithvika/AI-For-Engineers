@@ -1256,105 +1256,140 @@
     }
 
     // Settings function
-    function openSettings() {
-      const modal = document.createElement('div');
-      modal.className = 'settings-modal';
-      modal.innerHTML = `
-        <div class="settings-modal-content">
-          <div class="settings-header">
-            <h2>⚙️ Settings</h2>
-            <button onclick="closeSettingsModal()" style="background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer; float: right;">&times;</button>
-          </div>
-          
-          <div class="settings-section">
-            <h3>🤖 AI Configuration</h3>
-            <p style="color: #94a3b8; margin-bottom: 15px;">Configure Google Gemini API for enhanced mathematical reasoning</p>
-            
-            <div class="api-status" id="apiStatus">
-              <span style="color: #f87171;">⚠️ AI Not Configured</span>
-            </div>
-            
-            <div style="margin: 15px 0;">
-              <label style="color: #e2e8f0; display: block; margin-bottom: 5px;">Google Gemini API Key:</label>
-              <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API key..." 
-                     style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #666; background: #1a1a1a; color: white;">
-            </div>
-            
-            <button onclick="configureAI()" id="configureBtn" 
-                    style="background: #7c3aed; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-right: 10px;">
-              Configure AI
-            </button>
-            
-            <button onclick="checkAIStatus()" 
-                    style="background: #374151; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
-              Check Status
-            </button>
-          </div>
-          
-          <div class="settings-section" style="margin-top: 30px;">
-            <h3>📊 Application Info</h3>
-            <p style="color: #94a3b8;">
-              • Enhanced Mathematical Reasoning<br>
-              • Interactive Learning Games<br>
-              • Voice Input & Camera Support<br>
-              • Persistent Chat History<br>
-              • M1-M4 Engineering Mathematics
-            </p>
-          </div>
-          
-          <div class="settings-section" style="margin-top: 20px;">
-            <button onclick="exportChatHistory()" 
-                    style="background: #059669; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-right: 10px;">
-              📥 Export Chat History
-            </button>
-            
-            <button onclick="clearChatHistory()" 
-                    style="background: #dc2626; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
-              🗑️ Clear History
-            </button>
-          </div>
-        </div>
-      `;
-      
-      // Add modal styles
-      modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-      `;
-      
-      modal.querySelector('.settings-modal-content').style.cssText = `
-        background: rgba(0,0,0,0.95);
-        border: 1px solid rgba(167,139,250,0.3);
-        border-radius: 15px;
-        padding: 30px;
-        max-width: 600px;
-        max-height: 80vh;
-        overflow-y: auto;
-        color: #e2e8f0;
-        width: 90%;
-      `;
+    // ── THEME ──
+    var currentTheme = localStorage.getItem('appTheme') || 'dark';
 
-      document.body.appendChild(modal);
-      
-      // Check AI status on open
-      checkAIStatus();
-    }
-
-    // Close settings modal
-    function closeSettingsModal() {
-      const modal = document.querySelector('.settings-modal');
-      if (modal) {
-        modal.remove();
+    function applyTheme(name) {
+      currentTheme = name;
+      localStorage.setItem('appTheme', name);
+      var r = (name==='system') ? (window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light') : name;
+      if (r==='light') {
+        document.body.style.background='#f1f5f9';
+        document.querySelectorAll('.sidebar').forEach(function(e){e.style.background='#fff';e.style.borderColor='rgba(0,0,0,0.1)';});
+        document.querySelectorAll('.card').forEach(function(e){e.style.background='#fff';e.style.color='#1e293b';});
+        document.querySelectorAll('#question').forEach(function(e){e.style.background='#f8fafc';e.style.color='#1e293b';});
+        document.querySelectorAll('.chat-preview,.user-details h4,header p').forEach(function(e){e.style.color='#1e293b';});
+        document.querySelectorAll('header h1').forEach(function(e){e.style.webkitTextFillColor='#1e293b';});
+      } else {
+        document.body.style.background='';
+        document.querySelectorAll('.sidebar').forEach(function(e){e.style.background='';e.style.borderColor='';});
+        document.querySelectorAll('.card').forEach(function(e){e.style.background='';e.style.color='';});
+        document.querySelectorAll('#question').forEach(function(e){e.style.background='';e.style.color='';});
+        document.querySelectorAll('.chat-preview,.user-details h4,header p').forEach(function(e){e.style.color='';});
+        document.querySelectorAll('header h1').forEach(function(e){e.style.webkitTextFillColor='';});
       }
     }
+
+    // Settings function
+    function openSettings() {
+      if (document.getElementById('stgOverlay')) return;
+
+      var sections = [
+        {id:'general',    icon:'⚙️', label:'General'},
+        {id:'appearance', icon:'🎨', label:'Appearance'},
+        {id:'voice',      icon:'🎤', label:'Voice'},
+        {id:'data',       icon:'📦', label:'Data'},
+        {id:'account',    icon:'👤', label:'Account'},
+      ];
+      var active = 'general';
+
+      function build() {
+        var o = document.getElementById('stgOverlay');
+        if (!o) return;
+
+        // sidebar
+        var sb = o.querySelector('#stgSidebar');
+        sb.innerHTML = '<div style="color:#fff;font-size:1rem;font-weight:700;padding:0 12px 16px;border-bottom:1px solid rgba(255,255,255,0.07);margin-bottom:8px;">Settings</div>'
+          + sections.map(function(s){
+              var a = s.id===active;
+              return '<button onclick="stgNav(\''+s.id+'\')" style="display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:8px;border:none;background:'+(a?'rgba(255,255,255,0.1)':'transparent')+';color:'+(a?'#fff':'#8e8ea0')+';font-size:.875rem;font-weight:'+(a?'600':'400')+';cursor:pointer;text-align:left;">'+s.icon+' '+s.label+'</button>';
+            }).join('');
+
+        // content
+        var c = o.querySelector('#stgContent');
+        c.innerHTML = getContent();
+      }
+
+      function getContent() {
+        var inp = 'background:#2a2b32;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:8px 12px;font-size:.875rem;cursor:pointer;';
+        var rowStyle = 'display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);gap:16px;';
+        var labelStyle = 'color:#fff;font-size:.9rem;font-weight:500;';
+        var descStyle = 'color:#8e8ea0;font-size:.78rem;margin-top:2px;';
+
+        function row(label, desc, ctrl) {
+          return '<div style="'+rowStyle+'"><div><div style="'+labelStyle+'">'+label+'</div><div style="'+descStyle+'">'+desc+'</div></div>'+ctrl+'</div>';
+        }
+        function toggle(id, on) {
+          return '<label style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;" onclick="this.querySelector(\'input\').click()">'
+            +'<input type="checkbox" id="'+id+'" '+(on?'checked':'')+' style="opacity:0;width:0;height:0;" onchange="var s=this.nextElementSibling;s.style.background=this.checked?\'#10a37f\':\'#444\';s.querySelector(\'span\').style.left=this.checked?\'23px\':\'3px\';">'
+            +'<span style="position:absolute;inset:0;background:'+(on?'#10a37f':'#444')+';border-radius:24px;transition:background .2s;">'
+            +'<span style="position:absolute;width:18px;height:18px;left:'+(on?'23':'3')+'px;top:3px;background:#fff;border-radius:50%;transition:left .2s;"></span></span></label>';
+        }
+        function sel(opts, val) {
+          return '<select style="'+inp+'" onchange="">'
+            +opts.map(function(o){return '<option'+(o===val?' selected':'')+'>'+o+'</option>';}).join('')+'</select>';
+        }
+        function themeBtn(id, emoji, label) {
+          var a = currentTheme===id;
+          return '<button onclick="applyTheme(\''+id+'\');closeSettingsModal();setTimeout(openSettings,60);" style="flex:1;padding:12px 6px;border-radius:10px;border:2px solid '+(a?'#a78bfa':'rgba(255,255,255,0.1)')+';background:'+(a?'rgba(167,139,250,0.2)':'rgba(255,255,255,0.04)')+';color:'+(a?'#c4b5fd':'#8e8ea0')+';cursor:pointer;font-size:.85rem;font-weight:'+(a?'600':'400')+';">'+emoji+'<br>'+label+'</button>';
+        }
+        function actionBtn(label, fn, danger) {
+          return '<button onclick="'+fn+'" style="padding:8px 18px;border-radius:8px;border:1px solid '+(danger?'rgba(239,68,68,0.4)':'rgba(255,255,255,0.15)')+';background:'+(danger?'rgba(239,68,68,0.08)':'rgba(255,255,255,0.06)')+';color:'+(danger?'#ef4444':'#e2e8f0')+';font-size:.875rem;cursor:pointer;">'+label+'</button>';
+        }
+
+        var h2 = function(t){return '<h2 style="color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:20px;">'+t+'</h2>';};
+
+        if (active==='general') return h2('General')
+          +row('Language','Interface language',sel(['English','Hindi','Spanish','French'],'English'))
+          +row('Notifications','Show completion alerts',toggle('notifToggle',true));
+
+        if (active==='appearance') return h2('Appearance')
+          +'<div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);">'
+          +'<div style="color:#fff;font-size:.9rem;font-weight:500;margin-bottom:4px;">Theme</div>'
+          +'<div style="color:#8e8ea0;font-size:.78rem;margin-bottom:14px;">Choose your colour theme</div>'
+          +'<div style="display:flex;gap:10px;">'+themeBtn('dark','🌙','Dark')+themeBtn('light','☀️','Light')+themeBtn('system','💻','System')+'</div></div>'
+          +row('Font Size','Adjust text size',sel(['Small','Medium','Large'],'Medium'));
+
+        if (active==='voice') return h2('Voice')
+          +row('Voice Input','Enable microphone input',toggle('voiceToggle',true))
+          +row('Voice Language','Speech recognition language',sel(['English (US)','English (UK)','Hindi','Spanish'],'English (US)'));
+
+        if (active==='data') return h2('Data & Export')
+          +row('Export Chat','Download history as JSON',actionBtn('Export','exportChatHistory()',false))
+          +row('Clear History','Remove all saved chats',actionBtn('Clear','clearChatHistory()',true));
+
+        if (active==='account') return h2('Account')
+          +row('Profile','Current user','<span style="color:#8e8ea0;font-size:.875rem;">'+getCurrentUser().name+'</span>')
+          +row('Log Out','Sign out of account',actionBtn('Log Out','location.reload()',true));
+
+        return '';
+      }
+
+      var overlay = document.createElement('div');
+      overlay.id = 'stgOverlay';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:3000;display:flex;align-items:center;justify-content:center;';
+      overlay.onclick = function(e){ if(e.target===overlay) closeSettingsModal(); };
+      overlay.innerHTML =
+        '<div style="background:#202123;border-radius:14px;width:720px;max-width:95vw;height:500px;display:flex;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);position:relative;">'
+        +'<div id="stgSidebar" style="width:200px;background:#171717;padding:20px 10px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,0.07);flex-shrink:0;"></div>'
+        +'<div id="stgContent" style="flex:1;padding:32px;overflow-y:auto;color:#fff;"></div>'
+        +'<button onclick="closeSettingsModal()" style="position:absolute;top:14px;right:16px;background:transparent;border:none;color:#8e8ea0;font-size:1.1rem;cursor:pointer;padding:4px 8px;border-radius:6px;" onmouseover="this.style.color=\'#fff\'" onmouseout="this.style.color=\'#8e8ea0\'">✕</button>'
+        +'</div>';
+      document.body.appendChild(overlay);
+
+      window.stgNav = function(id) {
+        active = id;
+        build();
+      };
+
+      build();
+    }
+
+    function closeSettingsModal() {
+      var el = document.getElementById('stgOverlay');
+      if (el) el.remove();
+    }
+
 
     // Configure AI API
     async function configureAI() {
@@ -1438,6 +1473,7 @@
     // Initialize on page load
     window.addEventListener('load', () => {
       initializeChatHistory();
+      applyTheme(currentTheme);
       startNewChat();
       fcInit();
     });
