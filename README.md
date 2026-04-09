@@ -1,6 +1,6 @@
 # AI for Engineers
 
-An intelligent learning assistant for engineering students — ChatGPT-like interface, 30+ topic built-in knowledge base, Google Gemini AI, and interactive learning tools. Everything runs from a single unified Flask application.
+An intelligent learning assistant for engineering students with adaptive user interface, 30+ topic built-in knowledge base, Google Gemini AI, and interactive learning tools. Everything runs from a single unified Flask application.
 
 ---
 
@@ -39,7 +39,7 @@ OPENAI_API_KEY=your_openai_key
 - **Gemini keys**: [Google AI Studio](https://aistudio.google.com/app/apikey)
 - **OpenAI key**: [platform.openai.com](https://platform.openai.com/api-keys)
 
-Keys are loaded via environment variables only — never hardcoded in source files.
+Keys are loaded via environment variables only, never hardcoded in source files.
 
 ---
 
@@ -74,7 +74,7 @@ Questions are answered in priority order:
 
 ### Input Methods
 - Text input
-- Voice input (speech recognition — works best in Chrome)
+- Voice input (speech recognition that works best in Chrome)
 - Camera input
 
 ### Learning Tools
@@ -218,10 +218,10 @@ docker-compose -f deployment/docker-compose.yml up --build
 
 | Name | Role |
 |------|------|
-| Sai Spoorthy Eturu | Team lead, MLOps, deployment, unified app, AI integration |
-| Sahithi Rithvika Katakam | Data engineer, dataset management |
-| Shivani Edigi | ML engineer, model design and evaluation |
-| Hari Hansika Kommera | Backend and frontend development |
+| Sai Spoorthy Eturu | Team lead |
+| Sahithi Rithvika Katakam | Team Member |
+| Shivani Edigi | Team Member |
+| Hari Hansika Kommera | Team Member |
 
 **Advisor**: A Naga Kalyani — Assistant Professor, Dept of CSE (AI&ML), BVRIT Hyderabad College of Engineering for Women
 
