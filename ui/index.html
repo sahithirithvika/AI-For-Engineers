@@ -860,12 +860,37 @@
       const slotW=cW/7;
       if(type==='bar'){
         const barW=slotW*0.52;
+        // Stock-market style: color each bar red→yellow→green based on relative value
         data.forEach((val,i)=>{
           const x=pad.left+i*slotW+(slotW-barW)/2;
           const bH=Math.max((val/maxVal)*cH,val>0?3:0);
           const y=pad.top+cH-bH;
-          if(val>0){const g=ctx.createLinearGradient(0,y,0,y+bH);g.addColorStop(0,u.color||'#a78bfa');g.addColorStop(1,'rgba(96,165,250,0.25)');ctx.fillStyle=g;}else{ctx.fillStyle='rgba(255,255,255,0.04)';}
+          const ratio=maxVal>0?val/maxVal:0; // 0=red, 0.5=yellow, 1=green
+          let topColor,botColor;
+          if(ratio<0.5){
+            // red → yellow
+            const t=ratio*2;
+            const r=220, g=Math.round(t*180), b=0;
+            topColor=`rgb(${r},${g},${b})`;
+            botColor=`rgba(${r},${g},${b},0.3)`;
+          } else {
+            // yellow → green
+            const t=(ratio-0.5)*2;
+            const r=Math.round(220*(1-t)), g=Math.round(180+t*55), b=0;
+            topColor=`rgb(${r},${g},${b})`;
+            botColor=`rgba(${r},${g},${b},0.3)`;
+          }
+          if(val>0){
+            const g=ctx.createLinearGradient(0,y,0,y+bH);
+            g.addColorStop(0,topColor);
+            g.addColorStop(1,botColor);
+            ctx.fillStyle=g;
+          } else {
+            ctx.fillStyle='rgba(255,255,255,0.04)';
+          }
           ctx.beginPath();ctx.roundRect(x,y,barW,bH||2,[4,4,0,0]);ctx.fill();
+          // Thin border on each bar for stock-market feel
+          if(val>0){ctx.strokeStyle=topColor;ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x,y,barW,bH,[4,4,0,0]);ctx.stroke();}
           if(val>0){ctx.fillStyle='#e2e8f0';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';ctx.fillText(val,x+barW/2,y-5);}
           ctx.fillStyle='#64748b';ctx.font='10px Segoe UI';ctx.textAlign='center';ctx.fillText(days[i],x+barW/2,H-8);
         });
