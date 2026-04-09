@@ -90,26 +90,45 @@
     .game-btn {
       background: rgba(167, 139, 250, 0.1);
       border: 1px solid rgba(167, 139, 250, 0.2);
-      border-radius: 8px;
-      padding: 12px 8px;
+      border-radius: 12px;
+      padding: 14px 8px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s cubic-bezier(.4,0,.2,1);
       text-align: center;
       color: #e2e8f0;
       font-size: 12px;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
     }
+    .game-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.25s;
+      border-radius: 12px;
+    }
+    .game-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .game-btn:hover::before { opacity: 1; }
+    .game-btn:active { transform: scale(0.97); }
 
-    .game-btn:hover {
-      background: rgba(167, 139, 250, 0.2);
-      border-color: #a78bfa;
-      transform: translateY(-1px);
-    }
+    .game-btn.sb  { border-color: rgba(139,92,246,0.4); }
+    .game-btn.sb::before  { background: linear-gradient(135deg,rgba(139,92,246,0.25),rgba(79,70,229,0.15)); }
+    .game-btn.cm  { border-color: rgba(236,72,153,0.4); }
+    .game-btn.cm::before  { background: linear-gradient(135deg,rgba(236,72,153,0.25),rgba(244,63,94,0.15)); }
+    .game-btn.fq  { border-color: rgba(245,158,11,0.4); }
+    .game-btn.fq::before  { background: linear-gradient(135deg,rgba(245,158,11,0.25),rgba(239,68,68,0.15)); }
+    .game-btn.vs  { border-color: rgba(16,185,129,0.4); }
+    .game-btn.vs::before  { background: linear-gradient(135deg,rgba(16,185,129,0.25),rgba(6,182,212,0.15)); }
 
     .game-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
+      font-size: 28px;
+      margin-bottom: 6px;
       display: block;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
     }
+    .game-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3px; }
 
     /* ── Flashcards ── */
     .flashcard-section {
@@ -681,21 +700,21 @@
     <div class="games-section">
       <div class="games-title">🎮 Learning Games</div>
       <div class="games-grid">
-        <div class="game-btn" onclick="playGame('stepBuilder')">
+        <div class="game-btn sb" onclick="playGame('stepBuilder')">
           <span class="game-icon">🧩</span>
-          Step Builder
+          <span class="game-label">Step Builder</span>
         </div>
-        <div class="game-btn" onclick="playGame('conceptMatch')">
+        <div class="game-btn cm" onclick="playGame('conceptMatch')">
           <span class="game-icon">🎯</span>
-          Concept Match
+          <span class="game-label">Concept Match</span>
         </div>
-        <div class="game-btn" onclick="playGame('formulaQuest')">
+        <div class="game-btn fq" onclick="playGame('formulaQuest')">
           <span class="game-icon">⚡</span>
-          Formula Quest
+          <span class="game-label">Formula Quest</span>
         </div>
-        <div class="game-btn" onclick="playGame('visualSolver')">
+        <div class="game-btn vs" onclick="playGame('visualSolver')">
           <span class="game-icon">📊</span>
-          Visual Solver
+          <span class="game-label">Visual Solver</span>
         </div>
       </div>
     </div>
@@ -829,18 +848,50 @@
       const inner = document.getElementById('fcInner');
       const front = document.getElementById('fcFront');
       const back  = document.getElementById('fcBack');
+      const counter = document.getElementById('fcCounter');
       if (!inner) return;
       inner.classList.remove('flipped');
       const [c1, c2] = c.color;
+
+      // Topic emoji map
+      const topicEmoji = { Calculus:'📐', Algebra:'🔢', Trigonometry:'📏', 'Linear Algebra':'🧮', Statistics:'📊', Physics:'⚡' };
+      const emoji = topicEmoji[c.topic] || '📌';
+
       front.style.background = `linear-gradient(135deg, ${c1}, ${c2})`;
-      front.innerHTML = `<div class="fc-label" style="color:rgba(255,255,255,0.75);">📌 ${c.topic}</div><div class="fc-text">${c.front}</div><div style="color:rgba(255,255,255,0.5);font-size:.65rem;margin-top:6px;">tap to reveal</div>`;
+      front.style.boxShadow = `0 8px 32px ${c1}55`;
+      front.innerHTML = `
+        <div style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">${emoji} ${c.topic}</div>
+        <div style="font-size:1.6rem;font-weight:800;color:#fff;letter-spacing:0.5px;text-shadow:0 2px 8px rgba(0,0,0,0.3);">${c.front}</div>
+        <div style="margin-top:14px;background:rgba(255,255,255,0.15);border-radius:20px;padding:5px 14px;font-size:.72rem;color:rgba(255,255,255,0.85);">👆 tap to reveal</div>`;
+
       back.style.background = `linear-gradient(135deg, ${c2}, ${c1})`;
-      back.innerHTML = `<div class="fc-label" style="color:rgba(255,255,255,0.75);">✅ Answer</div><div class="fc-text" style="white-space:pre-line;">${c.back}</div>`;
-      // dots
+      back.style.boxShadow = `0 8px 32px ${c2}55`;
+      back.innerHTML = `
+        <div style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">✅ Answer</div>
+        <div style="font-size:1.3rem;font-weight:700;color:#fff;white-space:pre-line;text-shadow:0 2px 8px rgba(0,0,0,0.3);">${c.back}</div>`;
+
+      if (counter) counter.textContent = `${fcIndex + 1} / ${FC_CARDS.length}`;
+
+      // Dots
       const dots = document.getElementById('fcDots');
-      const visible = FC_CARDS.slice(Math.max(0,fcIndex-2), fcIndex+5);
-      const offset  = Math.max(0, fcIndex-2);
-      dots.innerHTML = FC_CARDS.map((_,i) => `<div class="fc-dot ${i===fcIndex?'active':''}" onclick="fcGoto(${i})"></div>`).join('');
+      if (dots) dots.innerHTML = FC_CARDS.map((_,i) =>
+        `<div onclick="fcGoto(${i})" style="width:${i===fcIndex?'20px':'8px'};height:8px;border-radius:4px;background:${i===fcIndex?'#a78bfa':'rgba(255,255,255,0.2)'};cursor:pointer;transition:all .3s;"></div>`
+      ).join('');
+    }
+
+    function renderFcTopics() {
+      const topics = [...new Set(FC_CARDS.map(c => c.topic))];
+      const topicEmoji = { Calculus:'📐', Algebra:'🔢', Trigonometry:'📏', 'Linear Algebra':'🧮', Statistics:'📊', Physics:'⚡' };
+      const el = document.getElementById('fcTopics');
+      if (!el) return;
+      el.innerHTML = topics.map(t =>
+        `<button onclick="fcJumpTopic('${t}')" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#94a3b8;border-radius:20px;padding:4px 12px;font-size:.72rem;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(167,139,250,0.2)';this.style.color='#a78bfa'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='#94a3b8'">${topicEmoji[t]||'📌'} ${t}</button>`
+      ).join('');
+    }
+
+    function fcJumpTopic(topic) {
+      const idx = FC_CARDS.findIndex(c => c.topic === topic);
+      if (idx >= 0) { fcIndex = idx; fcRender(); }
     }
 
     function fcFlip() {
@@ -868,27 +919,47 @@
       fcIndex = 0;
       var overlay = document.createElement('div');
       overlay.id = 'fcOverlay';
-      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:center;justify-content:center;';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);z-index:2000;display:flex;align-items:center;justify-content:center;animation:fadeIn .2s ease;';
       overlay.onclick = function(e){ if(e.target===overlay) closeFlashcards(); };
-      overlay.innerHTML = '<div style="background:#0f172a;border:1px solid rgba(167,139,250,0.3);border-radius:20px;width:460px;max-width:95vw;padding:28px;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.7);">'
-        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'
-        + '<div><div style="color:#fff;font-size:1rem;font-weight:700;">⚡ Flash Cards</div>'
-        + '<div style="color:#64748b;font-size:.75rem;">Tap card to flip</div></div>'
-        + '<button onclick="closeFlashcards()" style="background:transparent;border:none;color:#64748b;font-size:1.3rem;cursor:pointer;padding:4px 8px;border-radius:6px;">✕</button>'
-        + '</div>'
-        + '<div style="perspective:900px;height:180px;cursor:pointer;margin:16px 0 12px;" onclick="fcFlip()">'
-        + '<div class="fc-inner" id="fcInner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);border-radius:16px;">'
-        + '<div id="fcFront" style="position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 20px;text-align:center;"></div>'
-        + '<div id="fcBack"  style="position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 20px;text-align:center;"></div>'
-        + '</div></div>'
-        + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">'
-        + '<button onclick="fcPrev()" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#e2e8f0;border-radius:8px;width:36px;height:36px;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">&#8249;</button>'
-        + '<span id="fcCounter" style="color:#64748b;font-size:.85rem;"></span>'
-        + '<button onclick="fcNext()" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#e2e8f0;border-radius:8px;width:36px;height:36px;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">&#8250;</button>'
-        + '</div>'
-        + '<div id="fcDots" style="display:flex;justify-content:center;gap:5px;flex-wrap:wrap;"></div>'
-        + '</div>';
+      overlay.innerHTML = `
+        <div style="background:#0d1117;border:1px solid rgba(167,139,250,0.3);border-radius:24px;width:500px;max-width:96vw;padding:0;position:relative;box-shadow:0 40px 100px rgba(0,0,0,0.8);overflow:hidden;">
+          <!-- Header -->
+          <div style="background:linear-gradient(135deg,#7c3aed,#2563eb);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="color:#fff;font-size:1.05rem;font-weight:700;letter-spacing:0.3px;">⚡ Flash Cards</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:.75rem;margin-top:2px;">Tap card to reveal answer</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span id="fcCounter" style="color:rgba(255,255,255,0.8);font-size:.8rem;background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;"></span>
+              <button onclick="closeFlashcards()" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;">✕</button>
+            </div>
+          </div>
+
+          <!-- Card area -->
+          <div style="padding:22px 22px 10px;">
+            <div style="perspective:1200px;height:200px;cursor:pointer;margin-bottom:16px;" onclick="fcFlip()">
+              <div class="fc-inner" id="fcInner" style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);border-radius:18px;">
+                <div id="fcFront" style="position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 24px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.4);"></div>
+                <div id="fcBack"  style="position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 24px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.4);"></div>
+              </div>
+            </div>
+
+            <!-- Nav -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <button onclick="fcPrev()" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#e2e8f0;border-radius:10px;width:42px;height:42px;cursor:pointer;font-size:1.4rem;display:flex;align-items:center;justify-content:center;transition:all .2s;" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">‹</button>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div id="fcDots" style="display:flex;justify-content:center;gap:5px;flex-wrap:wrap;max-width:280px;"></div>
+                <div style="color:#475569;font-size:.72rem;">click dot to jump</div>
+              </div>
+              <button onclick="fcNext()" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#e2e8f0;border-radius:10px;width:42px;height:42px;cursor:pointer;font-size:1.4rem;display:flex;align-items:center;justify-content:center;transition:all .2s;" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">›</button>
+            </div>
+
+            <!-- Topic filter pills -->
+            <div id="fcTopics" style="display:flex;flex-wrap:wrap;gap:6px;padding-bottom:16px;justify-content:center;"></div>
+          </div>
+        </div>`;
       document.body.appendChild(overlay);
+      renderFcTopics();
       fcRender();
     }
 
@@ -1177,26 +1248,49 @@
       }
     }
 
-    // Game functions
-    function playGame(gameType) {
-      closeGameModal();
-      if (gameType === 'stepBuilder') openStepBuilder();
-      else if (gameType === 'conceptMatch') openConceptMatch();
-      else if (gameType === 'formulaQuest') openFormulaQuest();
-      else if (gameType === 'visualSolver') openVisualSolver();
+    // ── CONFETTI ──
+    function launchConfetti() {
+      const colors = ['#a78bfa','#60a5fa','#34d399','#fbbf24','#f87171','#f472b6','#fb923c'];
+      for (let i = 0; i < 120; i++) {
+        const el = document.createElement('div');
+        const size = Math.random() * 10 + 6;
+        el.style.cssText = `position:fixed;top:-20px;left:${Math.random()*100}vw;width:${size}px;height:${size}px;
+          background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?'50%':'2px'};
+          z-index:9999;pointer-events:none;opacity:1;transform:rotate(${Math.random()*360}deg);`;
+        document.body.appendChild(el);
+        const duration = Math.random() * 2000 + 1500;
+        const xDrift = (Math.random() - 0.5) * 300;
+        el.animate([
+          { transform: `translateY(0) translateX(0) rotate(0deg)`, opacity: 1 },
+          { transform: `translateY(110vh) translateX(${xDrift}px) rotate(${Math.random()*720}deg)`, opacity: 0 }
+        ], { duration, easing: 'cubic-bezier(.25,.46,.45,.94)', fill: 'forwards' })
+          .onfinish = () => el.remove();
+      }
     }
 
-    function showGameModal(html, title) {
+    // ── GAME MODAL ──
+    const GAME_THEMES = {
+      stepBuilder:  { gradient: 'linear-gradient(135deg,#7c3aed,#4f46e5)', accent: '#a78bfa', bg: 'rgba(124,58,237,0.08)', border: 'rgba(124,58,237,0.3)' },
+      conceptMatch: { gradient: 'linear-gradient(135deg,#db2777,#e11d48)', accent: '#f472b6', bg: 'rgba(219,39,119,0.08)', border: 'rgba(219,39,119,0.3)' },
+      formulaQuest: { gradient: 'linear-gradient(135deg,#d97706,#dc2626)', accent: '#fbbf24', bg: 'rgba(217,119,6,0.08)',  border: 'rgba(217,119,6,0.3)'  },
+      visualSolver: { gradient: 'linear-gradient(135deg,#059669,#0891b2)', accent: '#34d399', bg: 'rgba(5,150,105,0.08)',  border: 'rgba(5,150,105,0.3)'  },
+    };
+    let _currentGameType = 'stepBuilder';
+
+    function showGameModal(html, title, gameType) {
+      closeGameModal();
+      _currentGameType = gameType || 'stepBuilder';
+      const t = GAME_THEMES[_currentGameType] || GAME_THEMES.stepBuilder;
       const modal = document.createElement('div');
       modal.className = 'game-modal';
-      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.82);display:flex;align-items:center;justify-content:center;z-index:1000;';
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:1000;animation:fadeIn .2s ease;';
       modal.innerHTML = `
-        <div style="background:#111827;border:1px solid rgba(167,139,250,0.3);border-radius:16px;padding:28px;max-width:620px;width:95%;max-height:85vh;overflow-y:auto;color:#e2e8f0;position:relative;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-            <h2 style="font-size:1.1rem;font-weight:600;">${title}</h2>
-            <button onclick="closeGameModal()" style="background:transparent;border:none;color:#94a3b8;font-size:1.3rem;cursor:pointer;line-height:1;">✕</button>
+        <div style="background:#0d1117;border:1px solid ${t.border};border-radius:20px;padding:0;max-width:640px;width:95%;max-height:88vh;overflow-y:auto;color:#e2e8f0;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.7);">
+          <div style="background:${t.gradient};padding:18px 22px;border-radius:20px 20px 0 0;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:0.3px;">${title}</div>
+            <button onclick="closeGameModal()" style="background:rgba(255,255,255,0.2);border:none;color:#fff;font-size:1rem;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.35)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">✕</button>
           </div>
-          ${html}
+          <div style="padding:22px;">${html}</div>
         </div>`;
       document.body.appendChild(modal);
     }
@@ -1207,13 +1301,27 @@
 
     function gameResult(correct, score, total, feedback) {
       const pct = Math.round((score/total)*100);
+      const t = GAME_THEMES[_currentGameType] || GAME_THEMES.stepBuilder;
+      if (pct === 100) launchConfetti();
       const color = pct===100 ? '#34d399' : pct>=60 ? '#fbbf24' : '#f87171';
-      const emoji = pct===100 ? '🎉' : pct>=60 ? '👍' : '❌';
-      return `<div style="margin-top:16px;padding:14px 16px;border-radius:10px;background:${color}18;border:1px solid ${color}55;text-align:center;">
-        <div style="font-size:1.5rem;">${emoji}</div>
-        <div style="color:${color};font-weight:600;font-size:1rem;margin:6px 0;">${pct===100?'Perfect!':pct>=60?'Good effort!':'Keep practising!'} — ${score}/${total} correct</div>
-        <div style="color:#94a3b8;font-size:.85rem;margin-top:4px;">${feedback}</div>
+      const emoji = pct===100 ? '🎉🏆🎊' : pct>=60 ? '👍⭐' : '💪 Keep going!';
+      const msg   = pct===100 ? 'Perfect Score!' : pct>=60 ? 'Great effort!' : 'Keep practising!';
+      return `<div style="margin-top:16px;padding:18px;border-radius:14px;background:${color}15;border:2px solid ${color}55;text-align:center;animation:fadeIn .3s ease;">
+        <div style="font-size:2rem;margin-bottom:6px;">${emoji}</div>
+        <div style="color:${color};font-weight:700;font-size:1.1rem;margin-bottom:4px;">${msg}</div>
+        <div style="color:#e2e8f0;font-size:1.3rem;font-weight:800;margin-bottom:6px;">${score} / ${total}</div>
+        <div style="color:#94a3b8;font-size:.85rem;">${feedback}</div>
       </div>`;
+    }
+
+    // ── GAME DISPATCH ──
+    function playGame(gameType) {
+      closeGameModal();
+      _currentGameType = gameType;
+      if (gameType === 'stepBuilder') openStepBuilder();
+      else if (gameType === 'conceptMatch') openConceptMatch();
+      else if (gameType === 'formulaQuest') openFormulaQuest();
+      else if (gameType === 'visualSolver') openVisualSolver();
     }
 
     // ── STEP BUILDER ──
@@ -1243,7 +1351,7 @@
         </div>
         <button onclick="checkStepOrder()" style="background:#7c3aed;color:#fff;border:none;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:.9rem;width:100%;">✅ Check Order</button>
         <div id="sbResult"></div>`;
-      showGameModal(html, '🧩 Step Builder');
+      showGameModal(html, '🧩 Step Builder — Differentiation', 'stepBuilder');
     }
 
     function sbMove(id, dir) {
@@ -1289,7 +1397,7 @@
         </div>
         <div id="cmScore" style="color:#64748b;font-size:.85rem;text-align:center;margin-bottom:8px;">Matched: 0 / ${CM_PAIRS.length}</div>
         <div id="cmResult"></div>`;
-      showGameModal(html, '🎯 Concept Matcher');
+      showGameModal(html, '🎯 Concept Matcher — Math Definitions', 'conceptMatch');
       cmSelected = null;
       window._cmMatched = 0;
     }
@@ -1355,7 +1463,7 @@
         </div>
         <button onclick="checkFormulas()" style="background:#7c3aed;color:#fff;border:none;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:.9rem;width:100%;">✅ Check Answers</button>
         <div id="fqResult"></div>`;
-      showGameModal(html, '⚡ Formula Quest');
+      showGameModal(html, '⚡ Formula Quest — Fill the Blanks', 'formulaQuest');
     }
 
     function checkFormulas() {
@@ -1395,7 +1503,7 @@
     function renderVSQuestion(qi) {
       if (qi >= VS_QUESTIONS.length) {
         const html = `<div style="text-align:center;padding:20px;">${gameResult(vsScore===VS_QUESTIONS.length, vsScore, VS_QUESTIONS.length, vsScore===VS_QUESTIONS.length?'Perfect visual analysis!':'Review the graphs and try again.')}</div>`;
-        showGameModal(html, '📊 Visual Solver — Results');
+        showGameModal(html, '📊 Visual Solver — Results', 'visualSolver');
         return;
       }
       const q = VS_QUESTIONS[qi];
@@ -1410,7 +1518,7 @@
               <span style="color:#64748b;margin-right:8px;">${String.fromCharCode(65+oi)}.</span>${opt}
             </button>`).join('')}
         </div>`;
-      showGameModal(html, '📊 Visual Solver');
+      showGameModal(html, '📊 Visual Solver — Graph Analysis', 'visualSolver');
     }
 
     function vsAnswer(qi, chosen) {
