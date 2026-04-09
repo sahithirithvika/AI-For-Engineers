@@ -18,7 +18,7 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #0d0d0d;
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       padding: 0;
       overflow: hidden;
@@ -337,16 +337,17 @@
       align-items: center;
       padding: 40px 16px 32px;
       position: relative;
+      height: 100vh;
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-width: thin;
-      scrollbar-color: rgba(167,139,250,0.4) transparent;
+      scrollbar-color: rgba(167,139,250,0.5) rgba(255,255,255,0.05);
     }
 
-    .main-content::-webkit-scrollbar { width: 6px; }
-    .main-content::-webkit-scrollbar-track { background: transparent; }
-    .main-content::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.4); border-radius: 3px; }
-    .main-content::-webkit-scrollbar-thumb:hover { background: rgba(167,139,250,0.7); }
+    .main-content::-webkit-scrollbar { width: 8px; }
+    .main-content::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius: 4px; }
+    .main-content::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.5); border-radius: 4px; }
+    .main-content::-webkit-scrollbar-thumb:hover { background: rgba(167,139,250,0.8); }
 
     header { text-align: center; position: relative; z-index: 1; }
     header h1 {
