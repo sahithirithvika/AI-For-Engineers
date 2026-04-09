@@ -477,7 +477,143 @@
     .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
     /* ── Enhanced Result Display ── */
-    .result { margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; }
+    .result { margin-top: 8px; padding-top: 8px; width: 100%; max-width: 700px; }
+
+    /* Answer card wrapper */
+    .answer-card {
+      background: rgba(10,10,20,0.95);
+      border: 1px solid rgba(167,139,250,0.2);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+      margin-bottom: 16px;
+      animation: fadeSlideIn 0.3s ease;
+    }
+    @keyframes fadeSlideIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+    /* Top banner */
+    .answer-banner {
+      background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(37,99,235,0.2));
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .answer-banner-left { display: flex; align-items: center; gap: 10px; }
+    .answer-banner h2 { font-size: 1rem; color: #e2e8f0; margin: 0; font-weight: 600; }
+    .badge { font-size: 11px; padding: 3px 9px; border-radius: 20px; font-weight: 500; }
+    .badge-source { background: rgba(167,139,250,0.2); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.3); }
+    .badge-high { background: rgba(52,211,153,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
+    .badge-medium { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+
+    /* Question section */
+    .ans-question {
+      padding: 12px 18px;
+      background: rgba(96,165,250,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: #93c5fd;
+      font-size: 14px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .ans-question .q-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* Summary section */
+    .ans-summary {
+      padding: 14px 18px;
+      background: rgba(52,211,153,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .ans-summary .s-icon { font-size: 20px; flex-shrink: 0; }
+    .ans-summary-text { color: #a7f3d0; font-size: 15px; line-height: 1.7; font-weight: 500; }
+
+    /* Steps section */
+    .ans-steps { padding: 0; }
+    .steps-header {
+      padding: 12px 18px;
+      background: rgba(167,139,250,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .steps-header:hover { background: rgba(167,139,250,0.14); }
+    .steps-header-left { display: flex; align-items: center; gap: 8px; color: #a78bfa; font-size: 14px; font-weight: 600; }
+    .steps-header .arrow { color: #a78bfa; font-size: 12px; transition: transform 0.3s; }
+    .steps-header.open .arrow { transform: rotate(180deg); }
+    .steps-list { overflow: hidden; max-height: 0; transition: max-height 0.4s ease; }
+    .steps-list.open { max-height: 3000px; }
+
+    .step-row {
+      display: flex;
+      gap: 14px;
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      align-items: flex-start;
+      transition: background 0.15s;
+    }
+    .step-row:hover { background: rgba(255,255,255,0.02); }
+    .step-row:last-child { border-bottom: none; }
+    .step-bubble {
+      min-width: 28px; height: 28px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: white;
+      flex-shrink: 0; margin-top: 1px;
+      box-shadow: 0 2px 8px rgba(124,58,237,0.4);
+    }
+    .step-content { color: #cbd5e1; font-size: 14px; line-height: 1.75; }
+    .step-content strong { color: #e2e8f0; }
+
+    /* Concepts row */
+    .ans-concepts {
+      padding: 12px 18px;
+      background: rgba(96,165,250,0.04);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .ans-concepts-label { color: #64748b; font-size: 12px; margin-right: 4px; }
+    .concept-tag {
+      font-size: 11px; padding: 4px 10px; border-radius: 20px;
+      background: rgba(96,165,250,0.12); color: #93c5fd;
+      border: 1px solid rgba(96,165,250,0.2);
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    /* Verification box */
+    .ans-verify {
+      margin: 0 18px 14px;
+      background: rgba(251,191,36,0.07);
+      border: 1px solid rgba(251,191,36,0.2);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px; color: #fbbf24;
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+
+    /* Tips box */
+    .ans-tips {
+      margin: 0 18px 14px;
+      background: rgba(167,139,250,0.06);
+      border: 1px solid rgba(167,139,250,0.15);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px; color: #c4b5fd;
+    }
+    .ans-tips-title { font-weight: 600; margin-bottom: 6px; color: #a78bfa; }
+
     .result-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
     .result-header h2 { font-size: 1.1rem; color: #a78bfa; margin: 0; }
     .source-badge { font-size: 11px; padding: 3px 8px; border-radius: 20px; background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
@@ -1766,70 +1902,97 @@
         
         if (data.error || !data.success) {
           const errorMsg = data.error || 'Unknown error';
-          result.innerHTML = `<div class="error">❌ ${errorMsg}</div>`;
+          result.innerHTML = `<div class="answer-card"><div style="padding:16px 18px;color:#f87171;display:flex;gap:8px;align-items:center;">❌ <span>${errorMsg}</span></div></div>`;
           answerText = `Error: ${errorMsg}`;
         } else {
-          // ── Build step items with numbered circles ──
+          // Step icons cycling
+          const stepIcons = ['🔍','📐','🧮','⚙️','📊','🔗','✏️','🎯','💡','🏁'];
+
+          // ── Steps ──
           let stepsHtml = '';
           if (data.steps && data.steps.length > 0) {
-            const stepItems = data.steps.map((s, i) => {
-              // Strip "Step N:" prefix since we show the number visually
+            const stepRows = data.steps.map((s, i) => {
               const text = s.replace(/^Step\s*\d+[:\-\.]?\s*/i, '');
-              return `<div class="step-item">
-                <div class="step-num">${i+1}</div>
-                <div class="step-text">${text}</div>
+              const icon = stepIcons[i % stepIcons.length];
+              // Bold anything between ** **
+              const formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+              return `<div class="step-row">
+                <div class="step-bubble">${i+1}</div>
+                <div class="step-content">${icon} ${formatted}</div>
               </div>`;
             }).join('');
             stepsHtml = `
-              <div class="steps-container">
-                <div class="steps-toggle open" onclick="toggleSteps(this)">
-                  <span>📋 Step-by-Step Solution (${data.steps.length} steps)</span>
+              <div class="ans-steps">
+                <div class="steps-header open" onclick="toggleSteps(this)">
+                  <div class="steps-header-left">📋 Step-by-Step Solution <span style="background:rgba(167,139,250,0.2);color:#a78bfa;border-radius:20px;padding:2px 8px;font-size:11px;margin-left:6px;">${data.steps.length} steps</span></div>
                   <span class="arrow">▼</span>
                 </div>
-                <div class="steps-body open">${stepItems}</div>
+                <div class="steps-list open">${stepRows}</div>
               </div>`;
           }
 
-          // ── Concepts pills ──
+          // ── Concepts ──
           let conceptsHtml = '';
           if (data.mathematical_concepts && data.mathematical_concepts.length > 0) {
-            const pills = data.mathematical_concepts.map(c =>
-              `<span class="concept-pill">📌 ${c}</span>`).join('');
-            conceptsHtml = `<div class="concepts-row">${pills}</div>`;
+            const tags = data.mathematical_concepts.map(c =>
+              `<span class="concept-tag">🏷️ ${c}</span>`).join('');
+            conceptsHtml = `<div class="ans-concepts"><span class="ans-concepts-label">📚 Concepts:</span>${tags}</div>`;
           }
 
-          // ── Verification box ──
+          // ── Verification ──
           let verifyHtml = '';
           if (data.verification) {
-            verifyHtml = `<div class="verification-box">✅ <span>${data.verification}</span></div>`;
+            verifyHtml = `<div class="ans-verify">✅ <span><strong>Verify:</strong> ${data.verification}</span></div>`;
           }
 
-          // ── Source & confidence badges ──
+          // ── Tips ──
+          let tipsHtml = '';
+          if (data.mathematical_tips && data.mathematical_tips.length > 0) {
+            const tipItems = data.mathematical_tips.map(t => `<div>💡 ${t}</div>`).join('');
+            tipsHtml = `<div class="ans-tips"><div class="ans-tips-title">🎓 Learning Tips</div>${tipItems}</div>`;
+          }
+
+          // ── Badges ──
           const conf = data.confidence || 'high';
-          const confClass = conf === 'high' ? 'confidence-high' : 'confidence-medium';
+          const confClass = conf === 'high' ? 'badge-high' : 'badge-medium';
           const confIcon = conf === 'high' ? '🟢' : '🟡';
+          const sourceIcon = data.source && data.source.includes('Gemini') ? '🤖' :
+                             data.source && data.source.includes('OpenAI') ? '🧠' : '📖';
 
           const solutionHtml = `
-            <div class="result-header">
-              <h2>📝 Solution</h2>
-              <span class="source-badge">🔗 ${data.source || 'Built-in'}</span>
-              <span class="confidence-badge ${confClass}">${confIcon} ${conf}</span>
-            </div>
-            <div class="question-box">❓ ${data.question}</div>
-            <div class="solution-box">💡 ${data.solution}</div>
-            ${stepsHtml}
-            ${conceptsHtml}
-            ${verifyHtml}`;
+            <div class="answer-card">
+              <div class="answer-banner">
+                <div class="answer-banner-left">
+                  <span style="font-size:20px;">🎓</span>
+                  <h2>Solution</h2>
+                  <span class="badge badge-source">${sourceIcon} ${data.source || 'Built-in'}</span>
+                </div>
+                <span class="badge ${confClass}">${confIcon} ${conf} confidence</span>
+              </div>
+
+              <div class="ans-question">
+                <span class="q-icon">❓</span>
+                <span>${data.question}</span>
+              </div>
+
+              <div class="ans-summary">
+                <span class="s-icon">💡</span>
+                <div class="ans-summary-text">${data.solution}</div>
+              </div>
+
+              ${stepsHtml}
+              ${conceptsHtml}
+              ${verifyHtml ? `<div style="height:12px;"></div>${verifyHtml}` : ''}
+              ${tipsHtml}
+            </div>`;
 
           result.innerHTML = solutionHtml;
           answerText = data.solution || 'Solution provided';
 
-          // Trigger MathJax to re-render math in the new content
-          if (window.MathJax) {
-            MathJax.typesetPromise([result]).catch(err => console.log(err));
-          }
+          // Trigger MathJax
+          if (window.MathJax) MathJax.typesetPromise([result]).catch(()=>{});
 
-          // Scroll chat area to show the result
+          // Auto-scroll
           const chatArea = document.getElementById('chatArea');
           if (chatArea) setTimeout(() => chatArea.scrollTop = chatArea.scrollHeight, 100);
         }
@@ -1858,7 +2021,9 @@
     // Toggle collapsible steps
     function toggleSteps(btn) {
       btn.classList.toggle('open');
-      btn.nextElementSibling.classList.toggle('open');
+      // works for both old .steps-body and new .steps-list
+      const body = btn.nextElementSibling;
+      if (body) body.classList.toggle('open');
     }
 
     // ── VOICE ──
