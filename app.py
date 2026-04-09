@@ -21,7 +21,7 @@ try:
     from google import genai as google_genai
     from google.genai import errors as genai_errors
     gemini_client = google_genai.Client(api_key=GEMINI_API_KEY)
-    FALLBACK_MODELS = ["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.5-flash"]
+    FALLBACK_MODELS = ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash-lite"]
     print("✅ Gemini client initialised")
 except Exception as e:
     gemini_client = None
